@@ -1,0 +1,25 @@
+{
+  "name": "node-server-api-request",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fetch.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "devStart": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PiotrBerebecki/node-server-api-request.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PiotrBerebecki/node-server-api-request/issues"
+  },
+  "homepage": "https://github.com/PiotrBerebecki/node-server-api-request#readme",
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "request": "^2.81.0"
+  }
+}
