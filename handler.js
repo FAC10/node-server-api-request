@@ -5,8 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const fetch = require('./fetch');
-const url = 'http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC';
-const url2 = 'http://randomword.setgetgo.com/get.php';
+
 
 const handler = {};
 
@@ -14,28 +13,39 @@ handler.serveJson = (req, res) => {
 
   res.writeHead(200, {'content-type': 'application/json'});
 
+  const randomWordUrl = 'http://randomword.setgetgo.com/get.php';
 
-  // http.get(url, (apiRes) => {
-  //
-  //   let apiData = '';
-  //   apiRes.on('data', (chunk) => {
-  //     apiData += chunk;
-  //   });
-  //   apiRes.on('end', () => {
-  //     apiData = JSON.parse(apiData);
-  //
-  //     res.end(JSON.stringify(apiData.data[0].images.original.url));
-  //   });
-  //
-  // });
-  //
+//   http.get(randomWordUrl, (apiRes) => {
+//
+//     let apiData = '';
+//     apiRes.on('data', (chunk) => {
+//       apiData += chunk;
+//     });
+//     apiRes.on('end', () => {
+//
+//       console.log(apiData);
+//       res.end();
+//     });
+//
+//   });
 
-  request(url, (err, resAPI, body) => {
-    let json = JSON.parse(body);
-    json = json.data[0].images.original.url;
-    res.end(JSON.stringify(json));
+
+
+
+
+  request(randomWordUrl, (err, resAPI, body) => {
+    const giphyUrl = ['http://api.giphy.com/v1/gifs/search?q=', body, '&api_key=dc6zaTOxFJmzC'].join('');
+
+    request(giphyUrl, (err, resAPI, body) => {
+      let json = JSON.parse(body);
+      if (json.data.length) {
+        json = json.data[0].images.original.url;
+        res.end(JSON.stringify(json));
+      } else {
+        res.end(JSON.stringify('https://media.giphy.com/media/EFXGvbDPhLoWs/giphy.gif'));
+      }
+    });
   });
-
 
 };
 
